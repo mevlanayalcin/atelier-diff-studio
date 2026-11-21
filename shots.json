@@ -1,5 +1,6 @@
 [
-  { "name": "1-start.jpg", "query": "?shot=start&seed=1" },
-  { "name": "2-play.jpg", "query": "?shot=play&seed=1" },
-  { "name": "3-end.jpg", "query": "?shot=end&seed=1" }
+  { "name": "01-conservatory-hunt.jpg", "query": "?shot=cover" },
+  { "name": "02-clockmaker-loupe.jpg", "query": "?shot=loupe" },
+  { "name": "03-canal-urgency.jpg", "query": "?shot=urgency" },
+  { "name": "04-atelier-gallery.jpg", "query": "?shot=gallery" }
 ]

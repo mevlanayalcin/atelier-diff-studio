@@ -3,17 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block Dodger</title>
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #11141b; }
-  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-  /* Read aloud, never shown: the status line screen readers announce. */
-  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-</style>
+<title>Atelier Meridian · Spot the Difference</title>
+<link rel="stylesheet" href="./css/atelier.css">
 </head>
 <body>
-<canvas id="game" aria-label="Block Dodger: move the paddle left and right to dodge falling blocks and catch coins"></canvas>
-<p id="status" role="status" aria-live="polite"></p>
-<script type="module" src="./src/main.js"></script>
+<div id="app" class="atelier">
+  <header id="hud" class="hud" aria-label="Game status">
+    <div class="hud-title">
+      <div class="title-row"><span class="brand">Atelier Meridian · <span id="plate-numeral">Plate I</span></span><span id="tier-badge" class="badge">Classic</span></div>
+      <h1 id="scene-title">Grand Botanica Conservatory</h1>
+    </div>
+    <div id="counter" class="hud-counter">
+      <div id="counter-text" class="counter-text"><b id="found-count">0</b> / <span id="total-count">10</span> FOUND · <b id="remaining-count">10</b> REMAINING</div>
+      <div id="pips" class="pips" aria-hidden="true"></div>
+    </div>
+    <div id="timer" class="hud-timer">
+      <div class="timer-bar"><div id="timer-fill" class="timer-fill"></div></div>
+      <span id="timer-digits" class="timer-digits">03:00</span>
+      <span id="penalty-float" class="penalty-float"></span>
+    </div>
+    <div id="streak" class="hud-streak"><b id="streak-value">×1</b><small>STREAK</small></div>
+    <nav class="hud-tools" aria-label="Tools">
+      <button id="btn-hint" class="tool" title="Hint (H)"><i>✧</i>Hint <b id="hint-count">3/3</b></button>
+      <button id="btn-loupe" class="tool" title="Twin loupe (Z, or hold Space)"><i>◎</i>Loupe</button>
+      <button id="btn-mute" class="tool icon" title="Sound (M)"><i id="mute-glyph">♪</i></button>
+      <button id="btn-pause" class="tool icon" title="Pause (P)"><i>❚❚</i></button>
+      <button id="btn-gallery" class="tool" title="Gallery (G)"><i>▦</i>Gallery</button>
+    </nav>
+  </header>
+
+  <main id="stage" class="stage">
+    <figure id="plate-left" class="plate"><figcaption>Original Plate</figcaption><canvas id="canvas-left" aria-label="Original plate"></canvas></figure>
+    <figure id="plate-right" class="plate"><figcaption>Altered Plate</figcaption><canvas id="canvas-right" aria-label="Altered plate: click a difference on either plate"></canvas></figure>
+  </main>
+
+  <footer id="discoveries" class="discoveries">
+    <span class="strip-label">Discoveries</span>
+    <ol id="discovery-list" class="discovery-list"></ol>
+  </footer>
+
+  <div id="urgency-frame" class="urgency-frame" aria-hidden="true"></div>
+
+  <section id="gallery" class="modal gallery" hidden aria-label="World gallery">
+    <div class="gallery-card">
+      <header class="gallery-head">
+        <div><span class="brand">Atelier Meridian</span><h2>The World Gallery</h2><p>Five painted plates. Each Altered Plate hides a forger's changes. Find them all.</p></div>
+        <div id="mode-select" class="mode-select" role="radiogroup" aria-label="Difficulty mode"></div>
+      </header>
+      <div id="gallery-grid" class="gallery-grid"></div>
+      <p class="gallery-keys">Click either plate · Arrows/WASD + Enter inspect · H hint · Z or hold Space loupe · P pause · M mute · 1–5 plates · G gallery</p>
+    </div>
+  </section>
+
+  <section id="results" class="modal results" hidden aria-label="Round results"><div id="results-card" class="results-card"></div></section>
+  <section id="pause" class="modal pause" hidden aria-label="Paused"><div class="results-card"><h2>Paused</h2><p>The atelier waits. Press P or click to resume.</p><button id="btn-resume" class="cta">Resume</button></div></section>
+  <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+</div>
+<script type="module" src="./js/app.js"></script>
 </body>
 </html>
